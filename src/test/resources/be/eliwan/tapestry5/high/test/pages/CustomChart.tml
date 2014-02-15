@@ -1,0 +1,13 @@
+<html t:type="layout" t:title="Tapestry5 High*" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+
+	<h1>Demo</h1>
+	<div t:clientId="container2" t:type="CustomChart" t:options="options"/>
+	
+	<h1>How to create your own Component ? </h1>
+	<p>
+		For creating your own Highcharts component, you just need to extend the Highcharts class, and
+		override the getComponentOptions method, in order to define the specific JSON parameters for your 
+		component.
+	</p>
+	
+</html>

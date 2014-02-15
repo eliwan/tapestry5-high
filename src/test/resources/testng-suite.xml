@@ -1,0 +1,20 @@
+<!--
+  ~ This file is part of tapestry5-high, a Tapestry module for Highcharts and Highstock integration.
+  ~ Copyright (c) Eliwan bvba, Belgium, http://eliwan.be
+  ~
+  ~ The program is available in open source according to the Apache License, Version 2.0.
+  ~ For full licensing details, see LICENSE.txt in the project root.
+  -->
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="tapestry5-high* test suite" annotations="1.5">
+    <test name="Integration Tests"  enabled="true">
+        <parameter name="tapestry.web-app-folder" value="src/test/webapp"/>
+        <parameter name="tapestry.browser-start-command" value="*firefox" />
+
+        <classes>
+            <class name="be.eliwan.tapestry5.high.util.JsonUtilTest"></class>
+            <class name="be.eliwan.tapestry5.high.test.HighTest"></class>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,13 @@
+<html t:type="layout" t:title="Tapestry5 highcharts" t:activeElement="0"  
+		xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
+	
+		<h1>Tapestry5 High*</h1>
+		<p>
+			This project makes it possible to integrate the Highcharts and Highstock libraries in a
+			Tapestry Application. It is built for Tapestry 5.4.
+		</p>
+
+        <p><a t:type="pageLink" t:page="HighCharts">Highcharts demo</a></p>
+        <p><a t:type="pageLink" t:page="CustomChart">Customized highcharts component demo</a></p>
+
+</html>
