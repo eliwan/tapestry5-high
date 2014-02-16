@@ -8,15 +8,10 @@
 
 package be.eliwan.tapestry5.high.test.pages;
 
-import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
-import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
 public class Highcharts {
-
-    @Inject
-    private JavaScriptSupport javascript;
 
     public JSONObject getOptions() {
         JSONObject high = new JSONObject(

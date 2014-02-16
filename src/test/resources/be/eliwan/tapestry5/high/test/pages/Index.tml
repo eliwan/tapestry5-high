@@ -7,7 +7,10 @@
 			Tapestry Application. It is built for Tapestry 5.4.
 		</p>
 
-        <p><a t:type="pageLink" t:page="HighCharts">Highcharts demo</a></p>
-        <p><a t:type="pageLink" t:page="CustomChart">Customized highcharts component demo</a></p>
+        <ul>
+        <li><a t:type="pageLink" t:page="Highcharts">Highcharts demo</a></li>
+        <li><a t:type="pageLink" t:page="CustomChart">Customized highcharts component demo</a></li>
+        <li><a t:type="pageLink" t:page="Highstock">Highstock demo</a></li>
+        </ul>
 
 </html>

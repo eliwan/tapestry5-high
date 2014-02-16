@@ -14,7 +14,8 @@
 
         <classes>
             <class name="be.eliwan.tapestry5.high.util.JsonUtilTest"></class>
-            <class name="be.eliwan.tapestry5.high.test.HighTest"></class>
+            <class name="be.eliwan.tapestry5.high.test.HighchartsTest"></class>
+            <class name="be.eliwan.tapestry5.high.test.HighstockTest"></class>
         </classes>
     </test>
 </suite>

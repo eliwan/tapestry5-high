@@ -30,8 +30,8 @@ public final class HighModule {
      */
     @SuppressWarnings("unused")
     public static void contributeJavaScriptStackSource(MappedConfiguration<String, JavaScriptStack> configuration) {
-        configuration.addInstance(be.eliwan.tapestry5.high.services.HighchartsStack.STACK_ID,
-                be.eliwan.tapestry5.high.services.HighchartsStack.class);
+        configuration.addInstance(HighchartsStack.STACK_ID, HighchartsStack.class);
+        configuration.addInstance(HighstockStack.STACK_ID, HighstockStack.class);
     }
 
     /**
@@ -43,18 +43,6 @@ public final class HighModule {
     public static void contributeComponentClassResolver(Configuration<LibraryMapping> configuration) {
         configuration.add(new LibraryMapping("high", "be.eliwan.tapestry5.high"));
     }
-
-    /**
-     * Contribute classpath asset alias manager @todo do I need this? why?
-     *
-     * @param configuration configuration to extend
-     */
-    /*
-    @SuppressWarnings("unused")
-    public static void contributeClasspathAssetAliasManager(MappedConfiguration<String, String> configuration) {
-        configuration.add("tap-jquery-highcharts", "be/eliwan/tapestry5");
-    }
-    */
 
     /**
      * Contribute factory defaults.
