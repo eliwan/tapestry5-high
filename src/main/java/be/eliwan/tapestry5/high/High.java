@@ -8,6 +8,9 @@
 
 package be.eliwan.tapestry5.high;
 
+import be.eliwan.tapestry5.high.components.Highcharts;
+import be.eliwan.tapestry5.high.components.Highstock;
+
 /**
  * Constants for the module.
  */
@@ -15,4 +18,10 @@ public interface High {
 
     /*** Core path. */
     String CORE_PATH = "high.core.path";
+    
+    /**
+     * Event triggered by {@link Highcharts} and {@link Highstock}
+     */
+    String CHART_OPTIONS_EVENT = "chartOptions";
+    
 }

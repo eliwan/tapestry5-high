@@ -8,38 +8,58 @@
 
 package be.eliwan.tapestry5.high.components;
 
+import be.eliwan.tapestry5.high.High;
 import be.eliwan.tapestry5.high.services.HighchartsStack;
 import be.eliwan.tapestry5.high.util.JsonUtil;
 import lombok.Getter;
+
+import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.ClientElement;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.annotations.AfterRender;
+import org.apache.tapestry5.annotations.Events;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
+import org.apache.tapestry5.services.javascript.ModuleConfigurationCallback;
 
 /**
  * Component which displays a Highcharts object. Use options to set the chart options.
  */
 @Import(stack = HighchartsStack.STACK_ID)
+@Events(High.CHART_OPTIONS_EVENT)
 public class Highcharts implements ClientElement {
+	
+	final private static String INTERNAL_OPTIONS_EVENT = "options";
 
-    @Getter
+    //@Getter
     private String clientId;
 
-    @Parameter
-    @SuppressWarnings("unused")
+    @Parameter(principal = true)
     private JSONObject options;
+    
+    /**
+     * If true, it will load the data in a different request and the options parameter will be ignored.
+     * Instead, the options will be taken from the returned value of a method
+     * handling the {@link High#CHART_OPTIONS_EVENT} event.
+     */
+    @Parameter
+    private boolean ajax;
 
     @Inject
     private JavaScriptSupport javascript;
 
     @Inject
     private ComponentResources resources;
+    
+    @Inject
+    private HighchartsStack highchartsStack;
 
     /**
      * Add div in the page for the component.
@@ -67,12 +87,31 @@ public class Highcharts implements ClientElement {
 
         JSONObject params = getComponentOptions();
 
-        JsonUtil.merge(params, options);
+        if (ajax) {
+        	opt.put("eventUrl", resources.createEventLink(High.CHART_OPTIONS_EVENT).toAbsoluteURI());
+        }
+        else {
+        	JsonUtil.merge(params, options);
+        }
 
         opt.put("opt", params);
 
-        //javascript.require("highcharts").with(opt);
-        javascript.addInitializerCall("highcharts", opt);
+        javascript.addModuleConfigurationCallback(new ModuleConfigurationCallback() {
+			@Override
+			public JSONObject configure(JSONObject configuration) {
+				// see http://stackoverflow.com/questions/8186027/loading-highcharts-with-require-js
+				final JSONArray highchartsShim = new JSONArray();
+				highchartsShim.put(new JSONObject("exports", "Highcharts"));
+				highchartsShim.put(new JSONObject("deps", new JSONArray().put("jquery")));
+				configuration.in("shim").put("highcharts", highchartsShim);
+				// this supposes the highstock stack only has one javascript library
+				configuration.in("paths").put("highstock", highchartsStack.getJavaScriptLibraries().get(0).toClientURL());
+				return configuration;
+			}
+		});
+        
+        javascript.require("high/highcharts").with(opt);
+        
     }
 
     /**
@@ -83,6 +122,18 @@ public class Highcharts implements ClientElement {
      */
     public JSONObject getComponentOptions() {
         return new JSONObject("chart", new JSONObject("renderTo", getClientId()));
+    }
+    
+    @Override
+    public String getClientId() {
+    	return clientId;
+    }
+
+    /**
+     * Defines the default value of the ajax parameter if it isn't provided explicitly.
+     */
+    boolean defaultAjax() {
+    	return options == null;
     }
 
 }
