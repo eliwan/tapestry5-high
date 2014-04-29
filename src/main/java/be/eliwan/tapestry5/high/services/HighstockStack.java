@@ -18,6 +18,7 @@ import org.apache.tapestry5.services.AssetSource;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
 import org.apache.tapestry5.services.javascript.StylesheetLink;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,6 +37,8 @@ public class HighstockStack implements JavaScriptStack {
     private final List<Asset> javaScriptStack;
 
     private final List<StylesheetLink> stylesheetStack;
+    
+    private final List<String> modules = Arrays.asList("high/highstock");
 
     /**
      * Build the JavaScript stack.
@@ -61,12 +64,10 @@ public class HighstockStack implements JavaScriptStack {
         if (productionMode) {
             javaScriptStack = F
                     .flow("${high.core.path}/highstock/highstock.js")
-                    .append("${high.core.path}/highstock/tapestry-highstock.js")
                     .map(pathToAsset).toList();
         } else {
             javaScriptStack = F
                     .flow("${high.core.path}/highstock/highstock.src.js")
-                    .append("${high.core.path}/highstock/tapestry-highstock.js")
                     .map(pathToAsset).toList();
         }
 
@@ -94,6 +95,6 @@ public class HighstockStack implements JavaScriptStack {
 
     @Override
     public List<String> getModules() {
-        return Collections.emptyList();
+        return modules;
     }
 }

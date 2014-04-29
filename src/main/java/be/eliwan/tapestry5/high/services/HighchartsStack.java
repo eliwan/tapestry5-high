@@ -18,6 +18,7 @@ import org.apache.tapestry5.services.AssetSource;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
 import org.apache.tapestry5.services.javascript.StylesheetLink;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class HighchartsStack implements JavaScriptStack {
     public static final String STACK_ID = "highchartsStack";
 
     private final boolean productionMode;
+    
+    private final List<String> modules = Arrays.asList("high/highcharts");
 
     private final List<Asset> javaScriptStack;
 
@@ -61,12 +64,10 @@ public class HighchartsStack implements JavaScriptStack {
         if (productionMode) {
             javaScriptStack = F
                     .flow("${high.core.path}/highcharts/highcharts.js")
-                    .append("${high.core.path}/highcharts/tapestry-highcharts.js")
                     .map(pathToAsset).toList();
         } else {
             javaScriptStack = F
                     .flow("${high.core.path}/highcharts/highcharts.src.js")
-                    .append("${high.core.path}/highcharts/tapestry-highcharts.js")
                     .map(pathToAsset).toList();
         }
 
@@ -94,6 +95,6 @@ public class HighchartsStack implements JavaScriptStack {
 
     @Override
     public List<String> getModules() {
-        return Collections.emptyList();
+        return modules;
     }
 }
