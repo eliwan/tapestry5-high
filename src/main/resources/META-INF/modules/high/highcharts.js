@@ -5,8 +5,20 @@ define(["jquery", "t5/core/console"], function($, console) {
 		if(extra) {
 			params = extra;
 		}
-		$.extend(true, params, spec.opt);
-		chart = new Highcharts.Chart(params);
-		$("#" + spec.id).removeData('highcharts');		
+		if (spec.eventUrl) {
+			$.ajax({ url: spec.eventUrl}).done(function(data) {
+				data.chart.renderTo = spec.id;
+				setup(data);
+			});
+		}
+		else {
+			setup(spec.opt);
+		}
+		
+		function setup(data) {
+			$.extend(true, params, data);
+			chart = new Highcharts.Chart(params);
+			$("#" + spec.id).removeData('highcharts');
+		}		
 	};
 });

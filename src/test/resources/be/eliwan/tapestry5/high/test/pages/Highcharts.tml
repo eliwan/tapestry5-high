@@ -1,6 +1,9 @@
 <html t:type="layout" t:title="Tapestry5 High*" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
-	<h1>Demo</h1>
-	<div t:clientId="container" t:type="high/Highcharts" t:options="options"/>
+	<h1>Non-AJAX, single request</h1>
+	<div t:type="high/Highcharts" t:options="options"/>
+	
+	<h1>AJAX, data loaded in a separate request</h1>
+	<div t:type="high/Highcharts"/>
 	
 </html>

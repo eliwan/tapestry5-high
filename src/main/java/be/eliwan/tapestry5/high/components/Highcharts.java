@@ -8,6 +8,7 @@
 
 package be.eliwan.tapestry5.high.components;
 
+import be.eliwan.tapestry5.high.High;
 import be.eliwan.tapestry5.high.services.HighchartsStack;
 import be.eliwan.tapestry5.high.util.JsonUtil;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import org.apache.tapestry5.ClientElement;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.annotations.AfterRender;
+import org.apache.tapestry5.annotations.Events;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Path;
@@ -31,13 +33,24 @@ import org.apache.tapestry5.services.javascript.ModuleConfigurationCallback;
  * Component which displays a Highcharts object. Use options to set the chart options.
  */
 @Import(stack = HighchartsStack.STACK_ID)
+@Events(High.CHART_OPTIONS_EVENT)
 public class Highcharts implements ClientElement {
+	
+	final private static String INTERNAL_OPTIONS_EVENT = "options";
 
     //@Getter
     private String clientId;
 
-    @Parameter
+    @Parameter(principal = true)
     private JSONObject options;
+    
+    /**
+     * If true, it will load the data in a different request and the options parameter will be ignored.
+     * Instead, the options will be taken from the returned value of a method
+     * handling the {@link High#CHART_OPTIONS_EVENT} event.
+     */
+    @Parameter
+    private boolean ajax;
 
     @Inject
     private JavaScriptSupport javascript;
@@ -74,7 +87,12 @@ public class Highcharts implements ClientElement {
 
         JSONObject params = getComponentOptions();
 
-        JsonUtil.merge(params, options);
+        if (ajax) {
+        	opt.put("eventUrl", resources.createEventLink(High.CHART_OPTIONS_EVENT).toAbsoluteURI());
+        }
+        else {
+        	JsonUtil.merge(params, options);
+        }
 
         opt.put("opt", params);
 
@@ -93,6 +111,7 @@ public class Highcharts implements ClientElement {
 		});
         
         javascript.require("high/highcharts").with(opt);
+        
     }
 
     /**
@@ -108,6 +127,13 @@ public class Highcharts implements ClientElement {
     @Override
     public String getClientId() {
     	return clientId;
+    }
+
+    /**
+     * Defines the default value of the ajax parameter if it isn't provided explicitly.
+     */
+    boolean defaultAjax() {
+    	return options == null;
     }
 
 }
