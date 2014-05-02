@@ -7,9 +7,8 @@ define(["jquery", "t5/core/console"], function($, console) {
 		}
 		if (spec.eventUrl) {
 			$.ajax({ url: spec.eventUrl}).done(function(data) {
-				data.chart.renderTo = spec.id;
-				setup(data);
-			});
+                setup($.extend(true,{}, spec.opt, data));
+            });
 		}
 		else {
 			setup(spec.opt);

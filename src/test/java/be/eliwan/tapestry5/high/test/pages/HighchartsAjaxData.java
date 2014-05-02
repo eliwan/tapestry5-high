@@ -52,7 +52,6 @@ public class HighchartsAjaxData {
         high.put("series", new JSONArray(jane, john));
 
         return high;
-        
     }
 
 }

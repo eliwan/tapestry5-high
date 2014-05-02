@@ -34,11 +34,11 @@ public class HighstockStack implements JavaScriptStack {
 
     private final boolean productionMode;
 
+    private final List<String> modules = Arrays.asList("high/highstock");
+
     private final List<Asset> javaScriptStack;
 
     private final List<StylesheetLink> stylesheetStack;
-    
-    private final List<String> modules = Arrays.asList("high/highstock");
 
     /**
      * Build the JavaScript stack.

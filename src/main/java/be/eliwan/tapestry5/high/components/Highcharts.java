@@ -46,6 +46,7 @@ public class Highcharts implements ClientElement {
      * handling the {@link High#CHART_OPTIONS_EVENT} event.
      */
     @Parameter
+    @SuppressWarnings("unused")
     private boolean ajax;
 
     @Inject
