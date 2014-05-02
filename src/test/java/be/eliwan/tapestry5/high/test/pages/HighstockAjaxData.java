@@ -16,6 +16,18 @@ import org.apache.tapestry5.json.JSONObject;
 public class HighstockAjaxData {
 
     @SuppressWarnings("unused")
+    public JSONObject getOptions() {
+        return new JSONObject(
+                "rangeSelector", new JSONObject("selected", 1),
+                "title", new JSONObject("text", "AAPL AJAJ Stock Price"),
+                "series", new JSONArray(
+                        new JSONObject("name", "AAPL",
+                                "tooltip", new JSONObject("valueDecimals", 4)
+                        )
+                )
+        );
+    }
+    @SuppressWarnings("unused")
     @OnEvent(High.CHART_OPTIONS_EVENT)
     public JSONObject getChartOptionsThroughAjax() {
 
@@ -26,12 +38,9 @@ public class HighstockAjaxData {
         }
 
         return new JSONObject(
-                "rangeSelector", new JSONObject("selected", 1),
-                "title", new JSONObject("text", "AAPL Stock Price"),
                 "series", new JSONArray(
                         new JSONObject("name", "AAPL",
-                                "data", getData(),
-                                "tooltip", new JSONObject("valueDecimals", 2)
+                                "data", getData()
                         )
                 )
         );

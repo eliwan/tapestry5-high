@@ -12,7 +12,7 @@
         <li><a t:type="pageLink" t:page="HighchartsAjaxData">Highcharts demo - separate request to fetch the data</a></li>
         <li><a t:type="pageLink" t:page="CustomChart">Customized highcharts component demo</a></li>
         <li><a t:type="pageLink" t:page="HighstockOneRequest">Highstock demo - one request</a></li>
-        <li><a t:type="pageLink" t:page="HighstockAjaxData">Highstock demo - separate request to fetch the data</a></li>
+        <li><a t:type="pageLink" t:page="HighstockAjaxData">Highstock demo - separate request to fetch the data - split options and data</a></li>
         </ul>
 
 </html>

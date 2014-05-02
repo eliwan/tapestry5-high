@@ -1,6 +1,6 @@
 <html t:type="layout" t:title="Tapestry5 High*" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd">
 
     <h1>AJAX, data loaded in a separate request</h1>
-	<div t:type="high/Highstock"/>
+	<div t:type="high/Highstock" t:options="options" t:ajax="true"/>
 	
 </html>

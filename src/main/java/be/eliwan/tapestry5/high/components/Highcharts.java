@@ -85,10 +85,9 @@ public class Highcharts implements ClientElement {
 
         JSONObject params = getComponentOptions();
 
+        JsonUtil.merge(params, options);
         if (ajax) {
             opt.put("eventUrl", resources.createEventLink(High.CHART_OPTIONS_EVENT).toAbsoluteURI());
-        } else {
-            JsonUtil.merge(params, options);
         }
 
         opt.put("opt", params);
