@@ -13,40 +13,17 @@ import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 
-public class Highcharts {
+public class HighchartsAjaxData {
 
-    public JSONObject getOptions() {
-        JSONObject high = new JSONObject(
-                "title", new JSONObject("text", "Stock evolution"),
-                "chart", new JSONObject("type", "bar")
-        );
-
-        JSONObject xAxis = new JSONObject();
-        xAxis.put("categories", new JSONArray("Apples", "Bananas", "Oranges"));
-        high.put("xAxis", xAxis);
-
-        JSONObject yAxis = new JSONObject();
-        JSONObject yAxisTitle = new JSONObject();
-        yAxisTitle.put("text", "Fruit Eaten");
-        yAxis.put("title", yAxisTitle);
-        high.put("yAxis", yAxis);
-
-        JSONObject jane = new JSONObject(
-                "name", "Jane",
-                "data", new JSONArray(1, 0, 4)
-        );
-        JSONObject john = new JSONObject(
-                "name", "John",
-                "data", new JSONArray(5, 7, 3)
-        );
-
-        high.put("series", new JSONArray(jane, john));
-
-        return high;
-    }
-    
+    @SuppressWarnings("unused")
     @OnEvent(High.CHART_OPTIONS_EVENT)
     public JSONObject getChartOptionsThroughAjax() {
+
+        try {
+            Thread.sleep(2000); // sleep a little to show AJAX handling
+        } catch (InterruptedException ie) {
+            // ignore
+        }
 
         JSONObject high = new JSONObject(
                 "title", new JSONObject("text", "AJAX Stock evolution"),

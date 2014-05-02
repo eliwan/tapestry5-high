@@ -8,12 +8,23 @@
 
 package be.eliwan.tapestry5.high.test.pages;
 
+import be.eliwan.tapestry5.high.High;
+import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
 
-public class Highstock {
+public class HighstockAjaxData {
 
-    public JSONObject getOptions() {
+    @SuppressWarnings("unused")
+    @OnEvent(High.CHART_OPTIONS_EVENT)
+    public JSONObject getChartOptionsThroughAjax() {
+
+        try {
+            Thread.sleep(2000); // sleep a little to show AJAX handling
+        } catch (InterruptedException ie) {
+            // ignore
+        }
+
         return new JSONObject(
                 "rangeSelector", new JSONObject("selected", 1),
                 "title", new JSONObject("text", "AAPL Stock Price"),

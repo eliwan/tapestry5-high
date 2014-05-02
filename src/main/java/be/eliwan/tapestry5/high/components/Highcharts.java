@@ -37,6 +37,7 @@ public class Highcharts implements ClientElement {
     private String clientId;
 
     @Parameter(principal = true)
+    @SuppressWarnings("unused")
     private JSONObject options;
     
     /**
@@ -61,6 +62,7 @@ public class Highcharts implements ClientElement {
      *
      * @param writer markup writer
      */
+    @SuppressWarnings("unused")
     @SetupRender
     public void addDiv(MarkupWriter writer) {
         clientId = javascript.allocateClientId(resources);
@@ -99,7 +101,7 @@ public class Highcharts implements ClientElement {
                 highchartsShim.put(new JSONObject("deps", new JSONArray().put("jquery")));
                 configuration.in("shim").put("highcharts", highchartsShim);
                 // this supposes the highstock stack only has one javascript library
-                configuration.in("paths").put("highstock", highchartsStack.getJavaScriptLibraries().get(0).toClientURL());
+                configuration.in("paths").put("highcharts", highchartsStack.getJavaScriptLibraries().get(0).toClientURL());
                 return configuration;
             }
         });
@@ -122,8 +124,9 @@ public class Highcharts implements ClientElement {
      *
      * @return default value for the ajax parameter.
      */
+    @SuppressWarnings("unused")
     boolean defaultAjax() {
-        return options == null;
+        return null == options;
     }
 
 }

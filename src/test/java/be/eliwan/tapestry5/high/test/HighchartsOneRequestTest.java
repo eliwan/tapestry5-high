@@ -12,11 +12,11 @@ import com.thoughtworks.selenium.Wait;
 import org.apache.tapestry5.test.SeleniumTestCase;
 import org.testng.annotations.Test;
 
-public class HighstockTest extends SeleniumTestCase {
+public class HighchartsOneRequestTest extends SeleniumTestCase {
 
     @Test
     public void testJSFile() throws Exception {
-        open("/Highstock");
+        open("/HighchartsOneRequest");
 
         //Thread.sleep(600000);
 
@@ -24,8 +24,8 @@ public class HighstockTest extends SeleniumTestCase {
 
             @Override
             public boolean until() {
-                return isElementPresent("//head/script[contains(@src,'highstock.src.js')]");
+                return isElementPresent("//head/script[contains(@src,'highcharts.src.js')]");
             }
-        }.wait("The Highstock JavaScript file is missing.", 50000l);
+        }.wait("The Highcharts JavaScript file is missing.", 50000l);
     }
 }

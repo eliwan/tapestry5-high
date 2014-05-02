@@ -8,9 +8,11 @@
 		</p>
 
         <ul>
-        <li><a t:type="pageLink" t:page="Highcharts">Highcharts demo</a></li>
+        <li><a t:type="pageLink" t:page="HighchartsOneRequest">Highcharts demo - one request</a></li>
+        <li><a t:type="pageLink" t:page="HighchartsAjaxData">Highcharts demo - separate request to fetch the data</a></li>
         <li><a t:type="pageLink" t:page="CustomChart">Customized highcharts component demo</a></li>
-        <li><a t:type="pageLink" t:page="Highstock">Highstock demo</a></li>
+        <li><a t:type="pageLink" t:page="HighstockOneRequest">Highstock demo - one request</a></li>
+        <li><a t:type="pageLink" t:page="HighstockAjaxData">Highstock demo - separate request to fetch the data</a></li>
         </ul>
 
 </html>

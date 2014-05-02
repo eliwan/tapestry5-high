@@ -12,11 +12,11 @@ import com.thoughtworks.selenium.Wait;
 import org.apache.tapestry5.test.SeleniumTestCase;
 import org.testng.annotations.Test;
 
-public class HighchartsTest extends SeleniumTestCase {
+public class HighchartsAjaxDataTest extends SeleniumTestCase {
 
     @Test
     public void testJSFile() throws Exception {
-        open("/Highcharts");
+        open("/HighchartsAjaxData");
 
         //Thread.sleep(600000);
 
