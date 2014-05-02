@@ -11,15 +11,12 @@ package be.eliwan.tapestry5.high.components;
 import be.eliwan.tapestry5.high.services.HighstockStack;
 import be.eliwan.tapestry5.high.util.JsonUtil;
 import lombok.Getter;
-
-import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.ClientElement;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.annotations.AfterRender;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONArray;
@@ -33,7 +30,7 @@ import org.apache.tapestry5.services.javascript.ModuleConfigurationCallback;
 @Import(stack = HighstockStack.STACK_ID)
 public class Highstock implements ClientElement {
 
-    //@Getter
+    @Getter
     private String clientId;
 
     @Parameter
@@ -80,18 +77,18 @@ public class Highstock implements ClientElement {
         opt.put("opt", params);
         
         javascript.addModuleConfigurationCallback(new ModuleConfigurationCallback() {
-			@Override
-			public JSONObject configure(JSONObject configuration) {
-				// see http://stackoverflow.com/questions/8186027/loading-highcharts-with-require-js
-				final JSONArray highchartsShim = new JSONArray();
-				highchartsShim.put(new JSONObject("exports", "Highcharts"));
-				highchartsShim.put(new JSONObject("deps", new JSONArray().put("jquery")));
-				configuration.in("shim").put("highcharts", highchartsShim);
-				// this supposes the highstock stack only has one javascript library
-				configuration.in("paths").put("highstock", highstockStack.getJavaScriptLibraries().get(0).toClientURL());
-				return configuration;
-			}
-		});
+            @Override
+            public JSONObject configure(JSONObject configuration) {
+                // see http://stackoverflow.com/questions/8186027/loading-highcharts-with-require-js
+                final JSONArray highchartsShim = new JSONArray();
+                highchartsShim.put(new JSONObject("exports", "Highcharts"));
+                highchartsShim.put(new JSONObject("deps", new JSONArray().put("jquery")));
+                configuration.in("shim").put("highcharts", highchartsShim);
+                // this supposes the highstock stack only has one javascript library
+                configuration.in("paths").put("highstock", highstockStack.getJavaScriptLibraries().get(0).toClientURL());
+                return configuration;
+            }
+        });
 
         javascript.require("high/highstock").with(opt);
         
@@ -105,11 +102,6 @@ public class Highstock implements ClientElement {
      */
     public JSONObject getComponentOptions() {
         return new JSONObject("chart", new JSONObject("renderTo", getClientId()));
-    }
-    
-    @Override
-    public String getClientId() {
-    	return clientId;
     }
     
 }

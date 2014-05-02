@@ -12,8 +12,6 @@ import be.eliwan.tapestry5.high.High;
 import be.eliwan.tapestry5.high.services.HighchartsStack;
 import be.eliwan.tapestry5.high.util.JsonUtil;
 import lombok.Getter;
-
-import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.ClientElement;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.MarkupWriter;
@@ -21,7 +19,6 @@ import org.apache.tapestry5.annotations.AfterRender;
 import org.apache.tapestry5.annotations.Events;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONArray;
@@ -35,10 +32,8 @@ import org.apache.tapestry5.services.javascript.ModuleConfigurationCallback;
 @Import(stack = HighchartsStack.STACK_ID)
 @Events(High.CHART_OPTIONS_EVENT)
 public class Highcharts implements ClientElement {
-	
-	final private static String INTERNAL_OPTIONS_EVENT = "options";
 
-    //@Getter
+    @Getter
     private String clientId;
 
     @Parameter(principal = true)
@@ -88,30 +83,28 @@ public class Highcharts implements ClientElement {
         JSONObject params = getComponentOptions();
 
         if (ajax) {
-        	opt.put("eventUrl", resources.createEventLink(High.CHART_OPTIONS_EVENT).toAbsoluteURI());
-        }
-        else {
-        	JsonUtil.merge(params, options);
+            opt.put("eventUrl", resources.createEventLink(High.CHART_OPTIONS_EVENT).toAbsoluteURI());
+        } else {
+            JsonUtil.merge(params, options);
         }
 
         opt.put("opt", params);
 
         javascript.addModuleConfigurationCallback(new ModuleConfigurationCallback() {
-			@Override
-			public JSONObject configure(JSONObject configuration) {
-				// see http://stackoverflow.com/questions/8186027/loading-highcharts-with-require-js
-				final JSONArray highchartsShim = new JSONArray();
-				highchartsShim.put(new JSONObject("exports", "Highcharts"));
-				highchartsShim.put(new JSONObject("deps", new JSONArray().put("jquery")));
-				configuration.in("shim").put("highcharts", highchartsShim);
-				// this supposes the highstock stack only has one javascript library
-				configuration.in("paths").put("highstock", highchartsStack.getJavaScriptLibraries().get(0).toClientURL());
-				return configuration;
-			}
-		});
+            @Override
+            public JSONObject configure(JSONObject configuration) {
+                // see http://stackoverflow.com/questions/8186027/loading-highcharts-with-require-js
+                final JSONArray highchartsShim = new JSONArray();
+                highchartsShim.put(new JSONObject("exports", "Highcharts"));
+                highchartsShim.put(new JSONObject("deps", new JSONArray().put("jquery")));
+                configuration.in("shim").put("highcharts", highchartsShim);
+                // this supposes the highstock stack only has one javascript library
+                configuration.in("paths").put("highstock", highchartsStack.getJavaScriptLibraries().get(0).toClientURL());
+                return configuration;
+            }
+        });
         
         javascript.require("high/highcharts").with(opt);
-        
     }
 
     /**
@@ -124,16 +117,13 @@ public class Highcharts implements ClientElement {
         return new JSONObject("chart", new JSONObject("renderTo", getClientId()));
     }
     
-    @Override
-    public String getClientId() {
-    	return clientId;
-    }
-
     /**
      * Defines the default value of the ajax parameter if it isn't provided explicitly.
+     *
+     * @return default value for the ajax parameter.
      */
     boolean defaultAjax() {
-    	return options == null;
+        return options == null;
     }
 
 }

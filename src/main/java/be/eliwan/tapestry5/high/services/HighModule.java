@@ -9,7 +9,6 @@
 package be.eliwan.tapestry5.high.services;
 
 import be.eliwan.tapestry5.high.High;
-
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
@@ -24,20 +23,27 @@ public final class HighModule {
     private HighModule() {
         // hide constructor
     }
-    
+
+    /**
+     * Bind JavaScript stacks.
+     *
+     * @param binder service binder
+     */
     public static void bind(ServiceBinder binder) {
-    	binder.bind(HighstockStack.class);
-    	binder.bind(HighchartsStack.class);
+        binder.bind(HighstockStack.class);
+        binder.bind(HighchartsStack.class);
     }
 
     /**
      * Contribute JavaScript stacks.
      *
+     * @param highchartsStack highcharts stack
+     * @param highstockStack highstock stack
      * @param configuration configuration to extend
      */
     @SuppressWarnings("unused")
     public static void contributeJavaScriptStackSource(MappedConfiguration<String, JavaScriptStack> configuration,
-    		HighchartsStack highchartsStack, HighstockStack highstockStack) {
+            HighchartsStack highchartsStack, HighstockStack highstockStack) {
         configuration.add(HighchartsStack.STACK_ID, highchartsStack);
         configuration.add(HighstockStack.STACK_ID, highstockStack);
     }

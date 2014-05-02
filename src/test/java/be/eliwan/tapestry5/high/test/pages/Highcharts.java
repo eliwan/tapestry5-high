@@ -8,11 +8,10 @@
 
 package be.eliwan.tapestry5.high.test.pages;
 
+import be.eliwan.tapestry5.high.High;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
-
-import be.eliwan.tapestry5.high.High;
 
 public class Highcharts {
 
@@ -48,7 +47,7 @@ public class Highcharts {
     
     @OnEvent(High.CHART_OPTIONS_EVENT)
     public JSONObject getChartOptionsThroughAjax() {
-    	
+
         JSONObject high = new JSONObject(
                 "title", new JSONObject("text", "AJAX Stock evolution"),
                 "chart", new JSONObject("type", "bar")
