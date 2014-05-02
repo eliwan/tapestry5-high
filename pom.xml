@@ -9,7 +9,7 @@
 
     <groupId>be.eliwan</groupId>
     <artifactId>tapestry5-high</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>Tapestry 5 High*</name>
