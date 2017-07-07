@@ -129,4 +129,10 @@ public class Highcharts implements ClientElement {
         return null == options;
     }
 
+	@Override
+	public String getClientId()
+	{
+		return clientId;
+	}
+
 }
