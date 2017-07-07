@@ -130,4 +130,10 @@ public class Highstock implements ClientElement {
         return null == options;
     }
 
+	@Override
+	public String getClientId()
+	{
+		return clientId;
+	}
+
 }

@@ -37,7 +37,7 @@
     </scm>
 
     <properties>
-        <tapestry-release-version>5.4-beta-4</tapestry-release-version>
+	    <tapestry-release-version>5.4.0</tapestry-release-version>
     </properties>
 
     <repositories>
@@ -46,11 +46,6 @@
             <url>http://repository.apache.org/snapshots</url>
         </repository>
 
-        <!-- TODO: remove when 5.4 hits central -->
-        <repository>
-            <id>apache-staging</id>
-            <url>https://repository.apache.org/content/groups/staging/</url>
-        </repository>
         <repository>
             <id>apache-snapshots2</id>
             <url>https://repository.apache.org/content/groups/public</url>
