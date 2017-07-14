@@ -77,7 +77,7 @@ public class HighchartsStack implements JavaScriptStack {
 
     @Override
     public String getInitialization() {
-        return productionMode ? null : "Tapestry.DEBUG_ENABLED = true;";
+        return null;
     }
 
     @Override
