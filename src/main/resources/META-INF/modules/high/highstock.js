@@ -1,3 +1,11 @@
+require.config({
+	shim : {
+		highcharts : {
+			exports : "Highcharts",
+			deps : [ "jquery" ]
+		}
+	}
+});
 define(["jquery", "t5/core/console"], function($, console) {
 	return function(spec) {
         var params = {};
