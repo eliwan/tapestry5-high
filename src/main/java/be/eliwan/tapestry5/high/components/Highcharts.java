@@ -92,20 +92,6 @@ public class Highcharts implements ClientElement {
 
         opt.put("opt", params);
 
-        javascript.addModuleConfigurationCallback(new ModuleConfigurationCallback() {
-            @Override
-            public JSONObject configure(JSONObject configuration) {
-                // see http://stackoverflow.com/questions/8186027/loading-highcharts-with-require-js
-                final JSONArray highchartsShim = new JSONArray();
-                highchartsShim.put(new JSONObject("exports", "Highcharts"));
-                highchartsShim.put(new JSONObject("deps", new JSONArray().put("jquery")));
-                configuration.in("shim").put("highcharts", highchartsShim);
-                // this supposes the highstock stack only has one javascript library
-                configuration.in("paths").put("highcharts", highchartsStack.getJavaScriptLibraries().get(0).toClientURL());
-                return configuration;
-            }
-        });
-        
         javascript.require("high/highcharts").with(opt);
     }
 
@@ -128,5 +114,11 @@ public class Highcharts implements ClientElement {
     boolean defaultAjax() {
         return null == options;
     }
+
+	@Override
+	public String getClientId()
+	{
+		return clientId;
+	}
 
 }

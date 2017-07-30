@@ -15,6 +15,7 @@ import org.apache.tapestry5.func.Mapper;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.internal.util.CollectionFactory;
 import org.apache.tapestry5.services.AssetSource;
+import org.apache.tapestry5.services.javascript.JavaScriptAggregationStrategy;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
 import org.apache.tapestry5.services.javascript.StylesheetLink;
 
@@ -53,7 +54,8 @@ public class HighstockStack implements JavaScriptStack {
 
         final Mapper<String, Asset> pathToAsset = new Mapper<String, Asset>() {
 
-            public Asset map(String path) {
+            @Override
+			public Asset map(String path) {
                 return assetSource.getExpandedAsset(path);
             }
         };
@@ -75,7 +77,7 @@ public class HighstockStack implements JavaScriptStack {
 
     @Override
     public String getInitialization() {
-        return productionMode ? null : "Tapestry.DEBUG_ENABLED = true;";
+        return null;
     }
 
     @Override
@@ -97,4 +99,10 @@ public class HighstockStack implements JavaScriptStack {
     public List<String> getModules() {
         return modules;
     }
+
+	@Override
+	public JavaScriptAggregationStrategy getJavaScriptAggregationStrategy()
+	{
+		return JavaScriptAggregationStrategy.COMBINE_AND_MINIMIZE;
+	}
 }
